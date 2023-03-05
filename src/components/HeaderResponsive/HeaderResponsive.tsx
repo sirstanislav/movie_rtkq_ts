@@ -20,7 +20,7 @@ const HEADER_HEIGHT = rem(60);
 const useStyles = createStyles(theme => ({
   root: {
     position: "relative",
-    zIndex: 1
+    zIndex: 0
   },
 
   dropdown: {
@@ -138,7 +138,7 @@ export function HeaderResponsive() {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
+    <Header height={HEADER_HEIGHT} mb={60} className={classes.root}>
       <Container className={classes.header}>
         <Burger
           opened={opened}
