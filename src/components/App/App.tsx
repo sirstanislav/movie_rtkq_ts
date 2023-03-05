@@ -10,6 +10,7 @@ import { HeaderResponsive } from "../HeaderResponsive/HeaderResponsive";
 import { Subgrid } from "../Subgrid/Subgrid";
 import FooterSocial from "../FooterSocial/FooterSocial";
 import AffixButton from "../AffixButton/AffixButton";
+import FullScreenPopup from "../FullScreenPopup/FullScreenPopup";
 
 interface IAppProps {}
 
@@ -31,7 +32,7 @@ const App: React.FC<IAppProps> = props => {
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider
-        theme={{ colorScheme }}
+        theme={{ colorScheme, loader: "dots" }}
         withGlobalStyles
         withNormalizeCSS
       >
@@ -40,6 +41,7 @@ const App: React.FC<IAppProps> = props => {
           <Subgrid />
           <FooterSocial />
           <AffixButton />
+          <FullScreenPopup />
         </div>
       </MantineProvider>
     </ColorSchemeProvider>
