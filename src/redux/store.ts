@@ -1,6 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { getMovieApi } from "./getMovieApi";
-import { saveMovieApi } from "./saveMovieApi";
 import { emptySplitApi } from "./emptySplitApi";
 import rootReducer from "./index";
 
