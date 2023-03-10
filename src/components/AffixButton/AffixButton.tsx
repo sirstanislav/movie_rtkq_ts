@@ -1,14 +1,16 @@
 import * as React from "react";
 import { IconArrowUp } from "@tabler/icons-react";
 import { useWindowScroll } from "@mantine/hooks";
-import { Affix, Button, Text, Transition, rem } from "@mantine/core";
+import { Affix, Button, Transition, rem } from "@mantine/core";
 import { useAppSelector } from "../../redux/hooks";
 import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles(theme => ({
   root: {
+    width: "140px",
     [theme.fn.smallerThan("sm")]: {
-      left: 20
+      bottom: 27,
+      right: 140
     }
   }
 }));
@@ -17,7 +19,7 @@ interface IAffixButtonProps {}
 
 const AffixButton: React.FunctionComponent<IAffixButtonProps> = props => {
   const [scroll, scrollTo] = useWindowScroll();
-  const { isOpen } = useAppSelector(state => state.tweetData);
+  const { isOpen } = useAppSelector(state => state.movieData);
   const { classes } = useStyles();
 
   return (

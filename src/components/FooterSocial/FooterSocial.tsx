@@ -6,22 +6,16 @@ import {
   ActionIcon,
   rem,
   Image,
-  Button
 } from "@mantine/core";
-import {
-  IconBrandTwitter,
-  IconBrandYoutube,
-  IconBrandInstagram
-} from "@tabler/icons-react";
-import { MantineLogo } from "@mantine/ds";
+import { IconBrandTwitter } from "@tabler/icons-react";
 import logo from "../../images/logo.png";
 
-const useStyles = createStyles(theme => ({
+const useStyles = createStyles((theme) => ({
   footer: {
-    marginTop: 60,
+    marginTop: 7,
     borderTop: `${rem(1)} solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`
+    }`,
   },
 
   inner: {
@@ -33,20 +27,16 @@ const useStyles = createStyles(theme => ({
     paddingBottom: theme.spacing.xl,
 
     [theme.fn.smallerThan("xs")]: {
-      flexDirection: "row"
-    }
+      flexDirection: "row",
+    },
   },
 
-  links: {
-    [theme.fn.smallerThan("xs")]: {
-      marginTop: theme.spacing.md
-    }
-  }
+  links: {},
 }));
 
 interface IFooterSocialProps {}
 
-const FooterSocial: React.FC<IFooterSocialProps> = props => {
+const FooterSocial: React.FC<IFooterSocialProps> = (props) => {
   const { classes } = useStyles();
 
   return (
@@ -55,12 +45,13 @@ const FooterSocial: React.FC<IFooterSocialProps> = props => {
         <Image maw={40} radius="md" src={logo} alt="Random image" />
         <Group spacing={0} className={classes.links} position="right" noWrap>
           <ActionIcon
-            size="lg"
+            color="blue"
+            size="xl"
             component="a"
             href="https://twitter.com/ctacbarada"
             target="_blank"
           >
-            <IconBrandTwitter size="1.05rem" stroke={2} />
+            <IconBrandTwitter size="2.125rem" stroke={1.2} />
           </ActionIcon>
         </Group>
       </Container>
