@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { CloseButton, createStyles } from "@mantine/core";
-import { openPopup } from "../../redux/openPopupSlice";
+import { CloseButton, createStyles, Text } from "@mantine/core";
+import { openPopup } from "../../redux/movieDataSlice";
 
 interface IFullScreenPopupProps {}
 
@@ -13,6 +13,7 @@ const useStyles = createStyles(theme => ({
     width: "100%",
     height: "100%",
     display: "flex",
+    zIndex: 2,
     position: "fixed",
     alignItems: "center",
     justifyContent: "center",
@@ -38,20 +39,23 @@ const useStyles = createStyles(theme => ({
     position: "absolute",
     top: "-40px",
     right: "-40px"
+  },
+  title: {
+    color: theme.colors.gray[0]
   }
 }));
 
 const FullScreenPopup: React.FunctionComponent<IFullScreenPopupProps> = props => {
-  const { classes, cx } = useStyles();
   const dispatch = useAppDispatch();
-  const { isOpen, tweet } = useAppSelector(state => state.openPopup);
+  const { classes, cx } = useStyles();
+  const { isOpen, movie } = useAppSelector(state => state.movieData);
 
   return (
     <section
       className={cx(classes.root, { [classes.rootEnable]: isOpen })}
       onMouseDown={e => {
         if (e.target === e.currentTarget) {
-          dispatch(openPopup({ isOpen: false, tweet: tweet }));
+          dispatch(openPopup({ isOpen: false, movie: movie }));
         }
       }}
     >
@@ -62,10 +66,17 @@ const FullScreenPopup: React.FunctionComponent<IFullScreenPopupProps> = props =>
           iconSize={30}
           className={classes.close}
           onClick={() => {
-            dispatch(openPopup({ isOpen: false, tweet: tweet }));
+            dispatch(openPopup({ isOpen: false, movie: movie }));
           }}
         />
-        <img className={classes.image_full} src={tweet.url} alt="" />
+        <img
+          className={classes.image_full}
+          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          alt=""
+        />
+        <Text className={classes.title} weight={500}>
+          {movie.original_title}
+        </Text>
       </div>
     </section>
   );
