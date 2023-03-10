@@ -3,22 +3,72 @@ import * as React from "react";
 import {
   MantineProvider,
   ColorSchemeProvider,
-  ColorScheme
+  ColorScheme,
 } from "@mantine/core";
-import { useHotkeys, useLocalStorage } from "@mantine/hooks";
-import { HeaderResponsive } from "../HeaderResponsive/HeaderResponsive";
-import { Subgrid } from "../Subgrid/Subgrid";
-import FooterSocial from "../FooterSocial/FooterSocial";
+import { Pages } from "../Pages/Pages";
 import AffixButton from "../AffixButton/AffixButton";
+import { SavedMovies } from "../CardList/SavedMovies";
+import { FoundMovies } from "../CardList/FoundMovies";
+import FooterSocial from "../FooterSocial/FooterSocial";
+import { TopRatedMovies } from "../CardList/TopRatedMovies";
+import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
+import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 import FullScreenPopup from "../FullScreenPopup/FullScreenPopup";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { HeaderResponsive } from "../HeaderResponsive/HeaderResponsive";
 
-interface IAppProps {}
+interface IAppProps { }
 
-const App: React.FC<IAppProps> = props => {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <>
+        <HeaderResponsive />
+        <TopRatedMovies />
+        <Pages />
+        <FooterSocial />
+        <AffixButton />
+        <FullScreenPopup />
+      </>
+    ),
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/search",
+    element: (
+      <>
+        <HeaderResponsive />
+        <FoundMovies />
+        <Pages />
+        <FooterSocial />
+        <AffixButton />
+        <FullScreenPopup />
+      </>
+    ),
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/saved",
+    element: (
+      <>
+        <HeaderResponsive />
+        <SavedMovies />
+        <Pages />
+        <FooterSocial />
+        <AffixButton />
+        <FullScreenPopup />
+      </>
+    ),
+    errorElement: <NotFoundPage />,
+  },
+]);
+
+const App: React.FC<IAppProps> = (props) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
     defaultValue: "light",
-    getInitialValueInEffect: true
+    getInitialValueInEffect: true,
   });
 
   const toggleColorScheme = (value?: ColorScheme) =>
@@ -32,16 +82,14 @@ const App: React.FC<IAppProps> = props => {
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider
-        theme={{ colorScheme, loader: "dots" }}
+        theme={{
+          colorScheme, loader: "dots",
+        }}
         withGlobalStyles
         withNormalizeCSS
       >
         <div className="App">
-          <HeaderResponsive />
-          <Subgrid />
-          <FooterSocial />
-          <AffixButton />
-          <FullScreenPopup />
+          <RouterProvider router={router} />
         </div>
       </MantineProvider>
     </ColorSchemeProvider>
